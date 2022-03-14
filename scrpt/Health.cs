@@ -4,8 +4,8 @@ using System.Collections;
 public class Health : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private float startingHealth;
-    public float currentHealth { get; private set; }
+    [SerializeField] private float startingHealth;    //To know how much health the character have when game start
+    public float currentHealth { get; private set; }  //contain the current health of the player
     private Animator anim;
     private bool dead;
 
@@ -27,12 +27,15 @@ public class Health : MonoBehaviour
     public void TakeDamage(float _damage)
     {
         if (invulnerable) return;
-        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
+        //substract damage from current health(currentHealth-_damage)
+        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth); //Use so as health does not go below 0 or above max value
 
-        if (currentHealth > 0)
+
+                       //to check if player is dead after taking damage or still alive
+        if (currentHealth > 0) 
         {
             anim.SetTrigger("hurt");
-            StartCoroutine(Invunerability());
+            StartCoroutine(Invunerability());  
         }
         else
         {
